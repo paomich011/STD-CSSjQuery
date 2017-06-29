@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Awesome Document</title>
+
+
+	<script src="./js/jquery.min.js"></script>
+	
+	<script src="./js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var input = {};
+		 
+		
+			$('form').submit(function(e) {
+				e.preventDefault();
+				$('#saveModal').modal('show');
+				var $this = $(this);
+				input = $this.serialize();
+				
+				$('#saveModal.userInput').empty();
+				var inpu="<strong>Name : </strong>"+ $('#inputFirstName').val()+" "+$('#inputLastName').val()+"<br>"+ "<strong>Email Address :</strong>"+$('#inputEmail').val();
+				$('#inputss').html(inpu);
+				
+				
+				// show save modal (tod)
+			});
+			
+			// on btn-login click
+			$('.btn-login').click(function(e) {
+			  e.preventDefault();
+			  // send ajax request (todo)
+			  $.ajax({
+				method:"POST",
+				url: ['http://tolitsdelizo.info/st-activities/jquery/register.php'],
+				data: input
+			  })
+			  .done(function( msg ) {
+				if (msg == 'OK') {
+					$('#saveModal').modal('hide');
+					$('#successs').addClass('alert alert-success');
+					$('#successs').html("<strong>Registration</strong> Successfull!!!");
+					$('form').trigger("reset");
+
+
+				}
+			  });
+			  
+			});
+		  });
+	</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="panel panel-default">
+	<div class="panel-body">
+	
+	<form>
+		<input type="hidden" id="inputID" value="14-1247-609"/>
+		<h4 class="panel-heading">Sign up for free</h4>
+		<div id="successs"></div>
+			<div class="row">
+				<div class="form-group col-sm-6"> <input class="form-control " type="text" id="inputFirstName" placeholder="First Name*" required/></div>
+				<div class="form-group col-sm-6"> <input class="form-control" type="text" id="inputLastName" placeholder="Last Name*" required/></div>
+			</div>
+			<div class="form-group"> <input class="form-control" type="email" id="inputEmail" placeholder="Email Address*" required/></div>
+				
+			<div class="form-group"> <input class="form-control" type="password" id="inputPassword" placeholder="Password*" required/></div>
+			
+			<div class="form-group"><button type="submit" class="btn btn-primary pull-right">Sign up</button></div>
+			
+	</form>
+	</div>
+	</div>
+</div>
+
+
+<div id="saveModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Confirmation</h4>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to sign-up with the following info?</p>
+				<div class="userInput"><p id="inputss"></p></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button id="signup" type="button" class="btn btn-primary btn-login">Sign-up!</button>
+			</div>
+		</div>
+  </div>
+</div>
+
+
+
+
+
+</body>
+</html>
